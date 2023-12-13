@@ -1,5 +1,6 @@
 package com.example.todobackend.service.impl;
 
+import com.example.todobackend.enums.SortDirectionEnum;
 import com.example.todobackend.mapper.TodoMapper;
 import com.example.todobackend.model.dto.respond.RespPage;
 import com.example.todobackend.model.dto.respond.RespStatus;
@@ -28,6 +29,22 @@ public class TodoUtilityServiceImpl implements TodoUtilityService {
     public Response<List<RespTodo>> searchTodos(String query) {
         Response<List<RespTodo>> response = new Response<>();
         List<Todo> todoList = todoUtilityRepository.searchProducts(query);
+        List<RespTodo> respTodoList = todoList.stream().map(todoMapper::todoEntityToTodoResp).toList();
+        response.setT(respTodoList);
+        response.setRespStatus(RespStatus.getSuccesMessage());
+        return response;
+    }
+    @Override
+    public Response<List<RespTodo>> getAllTodosSortedByTitle(SortDirectionEnum sortDirection) {
+        Response<List<RespTodo>> response = new Response<>();
+        List<Todo> todoList;
+
+        if (sortDirection == SortDirectionEnum.ASC) {
+            todoList = todoUtilityRepository.findAllByTitleOrderByAsc();
+        } else {
+            todoList = todoUtilityRepository.findAllByTitleOrderByDesc();
+        }
+
         List<RespTodo> respTodoList = todoList.stream().map(todoMapper::todoEntityToTodoResp).toList();
         response.setT(respTodoList);
         response.setRespStatus(RespStatus.getSuccesMessage());
