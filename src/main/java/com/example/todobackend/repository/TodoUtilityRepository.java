@@ -10,8 +10,13 @@ import java.util.List;
 
 @Repository
 public interface TodoUtilityRepository extends JpaRepository<Todo,Long> {
-    @Query("SELECT p FROM Todo p WHERE " +
-            "p.title LIKE CONCAT('%', :query, '%')" + "Or p.description LIKE CONCAT('%', :query, '%')")
+    @Query("SELECT t FROM Todo t WHERE " +
+            "t.title LIKE CONCAT('%', :query, '%')" + "Or t.description LIKE CONCAT('%', :query, '%')")
     List<Todo> searchProducts(String query);
-    
+
+    @Query("SELECT t FROM Todo t ORDER BY LOWER(t.title) ASC")
+    List<Todo> findAllByTitleOrderByAsc();
+
+    @Query("SELECT t FROM Todo t ORDER BY LOWER(t.title) DESC")
+    List<Todo> findAllByTitleOrderByDesc();
 }
