@@ -13,4 +13,5 @@ public interface TodoUtilityRepository extends JpaRepository<Todo,Long> {
     @Query("SELECT p FROM Todo p WHERE " +
             "p.title LIKE CONCAT('%', :query, '%')" + "Or p.description LIKE CONCAT('%', :query, '%')")
     List<Todo> searchProducts(String query);
+    
 }
