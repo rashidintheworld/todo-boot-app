@@ -20,6 +20,7 @@ import java.util.Set;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

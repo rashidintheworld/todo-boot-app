@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "todos")
+@Builder
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Builder
+
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "roles")
