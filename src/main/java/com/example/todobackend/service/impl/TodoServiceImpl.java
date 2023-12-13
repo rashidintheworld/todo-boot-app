@@ -1,9 +1,10 @@
 package com.example.todobackend.service.impl;
 
-import com.example.todobackend.builder.TodoMapper;
+import com.example.todobackend.mapper.TodoMapper;
 import com.example.todobackend.exception.ResourceNotFoundException;
 import com.example.todobackend.exception.TodoException;
 import com.example.todobackend.model.dto.request.TodoDTO;
+import com.example.todobackend.model.dto.respond.RespPage;
 import com.example.todobackend.model.dto.respond.RespStatus;
 import com.example.todobackend.model.dto.respond.RespTodo;
 import com.example.todobackend.model.dto.respond.Response;
@@ -11,8 +12,9 @@ import com.example.todobackend.model.entity.Todo;
 import com.example.todobackend.repository.TodoRepository;
 import com.example.todobackend.service.TodoService;
 import com.example.todobackend.utils.StaticMessage;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,13 +51,13 @@ class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Response<List<RespTodo>> getAllTodos() {
-        Response<List<RespTodo>> response = new Response<>();
-        List<Todo> todoList = todoRepository.findAll();
-        List<RespTodo> respTodoList = todoList.stream().map(todoMapper::todoEntityToTodoResp).toList();
-        response.setT(respTodoList);
-        response.setRespStatus(RespStatus.getSuccesMessage());
-        return response;
+    public RespPage getAllTodo(int pageNo, int pageSize) {
+        Page<Todo> todoPage = todoRepository.findAll(PageRequest.of(pageNo,pageSize));
+        return new RespPage(
+                todoPage.getContent().stream().map(todoMapper::todoEntityToTodoResp).toList(),
+                todoPage.getTotalElements(),
+                todoPage.getTotalPages(),
+                todoPage.hasNext());
     }
 
     @Override
