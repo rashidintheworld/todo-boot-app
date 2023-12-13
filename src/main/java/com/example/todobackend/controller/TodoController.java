@@ -16,7 +16,6 @@ import java.util.List;
 @RequestMapping("api/v1/todos")
 public class TodoController {
     private final TodoService todoService;
-
     @GetMapping("/{id}")
     public Response<RespTodo> getTodoById(@PathVariable Long id) {
         return todoService.getTodo(id);
