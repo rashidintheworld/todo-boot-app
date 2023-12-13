@@ -1,6 +1,7 @@
 package com.example.todobackend.controller;
 
 import com.example.todobackend.model.dto.request.TodoDTO;
+import com.example.todobackend.model.dto.respond.RespPage;
 import com.example.todobackend.model.dto.respond.RespTodo;
 import com.example.todobackend.model.dto.respond.Response;
 import com.example.todobackend.service.TodoService;
@@ -26,9 +27,10 @@ public class TodoController {
         return todoService.saveTodo(todoDTO);
     }
 
+
     @GetMapping("/all")
-    public Response<List<RespTodo>> getAllTodos() {
-        return todoService.getAllTodos();
+    public RespPage getAllTodo(@RequestParam(value = "page") int page, @RequestParam(value = "count") int count) {
+        return todoService.getAllTodo(page,count);
     }
 
     @PatchMapping("/{id}")
@@ -41,6 +43,7 @@ public class TodoController {
         return todoService.updateTodo(id, todoDto);
     }
 
+    //nice-to-have-methods)
     @PutMapping("/{id}/completion")
     public ResponseEntity<String> markTodoAsCompleted(@PathVariable Long id) {
         todoService.completeTodo(id);
