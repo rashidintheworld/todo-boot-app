@@ -57,8 +57,7 @@ class TodoServiceImpl implements TodoService {
         response.setRespStatus(RespStatus.getSuccesMessage());
         return response;
     }
-
-
+    
     @Override
     public Response deleteTodo(Long id) {
         Response response = new Response();
@@ -91,7 +90,6 @@ class TodoServiceImpl implements TodoService {
         todo.setCompleted(Boolean.TRUE);
         todoRepository.save(todo);
     }
-
     @Override
     public void inCompleteTodo(Long id) {
         Todo todo = checkExistence(id);
