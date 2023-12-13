@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface TodoUtilityService {
     Response<List<RespTodo>> searchTodos(String query);
+    
 }
