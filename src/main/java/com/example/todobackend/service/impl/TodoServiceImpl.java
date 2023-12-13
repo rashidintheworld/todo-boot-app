@@ -57,7 +57,7 @@ class TodoServiceImpl implements TodoService {
         response.setRespStatus(RespStatus.getSuccesMessage());
         return response;
     }
-    
+
     @Override
     public Response deleteTodo(Long id) {
         Response response = new Response();
