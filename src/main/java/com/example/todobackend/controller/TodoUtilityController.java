@@ -1,6 +1,7 @@
 package com.example.todobackend.controller;
 
 
+import com.example.todobackend.enums.SortDirectionEnum;
 import com.example.todobackend.model.dto.respond.RespPage;
 import com.example.todobackend.model.dto.respond.RespTodo;
 import com.example.todobackend.model.dto.respond.Response;
@@ -24,6 +25,8 @@ public class TodoUtilityController {
         return todoUtilityService.searchTodos(query);
     }
 
-
-
+    @GetMapping("/sortBy")
+    public Response<List<RespTodo>> getAllSortedTodos(@RequestParam(value = "dir") SortDirectionEnum sortDirectionEnum) {
+        return todoUtilityService.getAllTodosSortedByTitle(sortDirectionEnum);
+    }
 }
