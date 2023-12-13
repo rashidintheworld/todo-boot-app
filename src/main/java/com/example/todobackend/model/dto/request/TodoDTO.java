@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TodoDTO {
     @NotNull(message = StaticMessage.NOT_NULL_MESSAGE)
