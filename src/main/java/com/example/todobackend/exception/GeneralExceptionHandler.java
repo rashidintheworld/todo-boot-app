@@ -19,23 +19,34 @@ public class GeneralExceptionHandler {
         response.setStatusCode(HttpStatus.NOT_FOUND.value());
         response.setMessage(resourceNotFoundException.getMessage());
         response.setTimestamp(System.currentTimeMillis());
-        return new ResponseEntity<ErrorResponse>(response,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<ErrorResponse>(response, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(TodoException.class)
+    public ResponseEntity<ErrorResponse> handleException(TodoException todoException) {
+        ErrorResponse response = new ErrorResponse();
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        response.setMessage(todoException.getMessage());
+        response.setTimestamp(System.currentTimeMillis());
+        return new ResponseEntity<ErrorResponse>(response, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> methodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException){
+    public ResponseEntity<ErrorResponse> methodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
         ErrorResponse response = new ErrorResponse();
         response.setStatusCode(HttpStatus.BAD_REQUEST.value());
         response.setMessage(methodArgumentNotValidException.getBindingResult().getFieldErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(",")));
         response.setTimestamp(System.currentTimeMillis());
-        return new ResponseEntity<ErrorResponse>(response,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<ErrorResponse>(response, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception exception) {
         ErrorResponse response = new ErrorResponse();
         response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setMessage(exception.getMessage());
         response.setTimestamp(System.currentTimeMillis());
-        return new ResponseEntity<ErrorResponse>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<ErrorResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
